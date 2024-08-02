@@ -10,7 +10,7 @@ export default {
     extend: {
       colors: {
         blue: {
-          100: "rgba(4, 0, 54, 0.7)",
+          950: "rgba(4,0,53,1)",
         },
       },
       backgroundImage: {
