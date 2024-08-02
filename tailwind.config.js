@@ -15,6 +15,8 @@ export default {
       },
       backgroundImage: {
         main: "radial-gradient(circle, rgba(8,0,116,1) 0%, rgba(4,0,53,1) 100%)",
+        "gd-white":
+          "radial-gradient(circle at 40% 150%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);",
       },
       boxShadow: {
         main: "inset 0px 0px 10px 0px rgba(255,255,255,1), inset 0px -24px 60px 0px rgba(255,255,255,0.22), inset 0px 8px 24px -16px rgba(255,255,255,0.15);",
