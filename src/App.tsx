@@ -9,10 +9,6 @@ function App() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
-    const moon = document.getElementById("teste");
-    if (moon) {
-      moon.style.opacity = "0";
-    }
     setRangeValue(value);
   };
   let positions: any = {
@@ -24,17 +20,6 @@ function App() {
     100: 85,
     120: 102,
   };
-
-  /* function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = Number(e.target.value);
-    setRangeValue(value);
-
-    const moon = document.getElementById("teste");
-    if (moon) {
-      const pos = idx[value];
-      moon.style.transform = `translateY(-${pos}rem)`;
-    }
-  } */
 
   return (
     <main className="bg-blue-950 h-dvh p-3">
