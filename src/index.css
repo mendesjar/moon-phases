@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.moon {
+  animation: moons 10s steps(7) infinite;
+  image-rendering: pixelated;
+}
+
+@keyframes moons {
+  /* from {
+    transform: translateX(0);
+  } */
+  to {
+    transform: translateY(-120rem);
+  }
+}
