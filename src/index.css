@@ -2,16 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-.moon {
-  animation: moons 10s steps(7) infinite;
-  image-rendering: pixelated;
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 17rem;
 }
 
-@keyframes moons {
-  /* from {
-    transform: translateX(0);
-  } */
-  to {
-    transform: translateY(-120rem);
-  }
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  padding: 0 0.4rem;
+  background-image: radial-gradient(
+    circle,
+    rgba(8, 0, 116, 1) 0%,
+    rgba(4, 0, 53, 1) 100%
+  );
+  border: 0.15rem solid rgba(255,255,255, 0.65);
+  border-opacity: 20rem;
+  box-shadow: inset 0px 0px 5px 0px rgba(255, 255, 255, 1),
+    inset 0px -8px 8px 0px rgba(255, 255, 255, 0.22),
+    inset 0px 5px 5px -5px rgba(255, 255, 255, 0.15);
+  border-radius: 80rem;
+  height: 3rem;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: 0.35rem;
+  background-color: #ffffff;
+  border-radius: 2rem;
+  height: 2rem;
+  width: 2rem;
 }
