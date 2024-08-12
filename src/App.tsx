@@ -13,12 +13,13 @@ function App() {
   };
   let positions: any = {
     0: { y: 0, phase: "Minguante" },
-    20: { y: 17, phase: "Quarto Minguante" },
-    40: { y: 34, phase: "Gibosa Minguante" },
-    60: { y: 51, phase: "Cheia" },
-    80: { y: 68, phase: "Gibosa Crescente" },
-    100: { y: 85, phase: "Quarto Crescente" },
-    120: { y: 102, phase: "Crescente" },
+    20: { y: 17.5, phase: "Quarto Minguante" },
+    40: { y: 35, phase: "Gibosa Minguante" },
+    60: { y: 52.5, phase: "Cheia" },
+    80: { y: 70, phase: "Gibosa Crescente" },
+    100: { y: 87.5, phase: "Quarto Crescente" },
+    120: { y: 105, phase: "Crescente" },
+    140: { y: 122.5, phase: "Nova" },
   };
 
   return (
@@ -32,7 +33,7 @@ function App() {
             <motion.img
               id="teste"
               ref={moonRef}
-              className="max-h-[120rem]"
+              className="max-h-[140rem]"
               src={MoonAnimation}
               alt="Moon Animation"
               animate={{
@@ -52,7 +53,7 @@ function App() {
                 value={rangeValue}
                 defaultValue={0}
                 min={0}
-                max={120}
+                max={140}
                 step={20}
               />
             </div>
