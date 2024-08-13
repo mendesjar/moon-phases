@@ -11,15 +11,17 @@ function App() {
     const value = Number(e.target.value);
     setRangeValue(value);
   };
+
   let positions: any = {
-    0: { y: 0, phase: "Minguante" },
-    20: { y: 17.5, phase: "Quarto Minguante" },
-    40: { y: 35, phase: "Gibosa Minguante" },
-    60: { y: 52.5, phase: "Cheia" },
-    80: { y: 70, phase: "Gibosa Crescente" },
-    100: { y: 87.5, phase: "Quarto Crescente" },
-    120: { y: 105, phase: "Crescente" },
-    140: { y: 122.5, phase: "Nova" },
+    0: { y: 0, phase: "Nova" },
+    20: { y: 18, phase: "Minguante" },
+    40: { y: 35.8, phase: "Quarto Minguante" },
+    60: { y: 53.5, phase: "Gibosa Minguante" },
+    80: { y: 71.3, phase: "Cheia" },
+    100: { y: 89, phase: "Gibosa Crescente" },
+    120: { y: 106.8, phase: "Quarto Crescente" },
+    140: { y: 124.7, phase: "Crescente" },
+    160: { y: 142.2, phase: "Nova" },
   };
 
   return (
@@ -33,7 +35,7 @@ function App() {
             <motion.img
               id="teste"
               ref={moonRef}
-              className="max-h-[140rem]"
+              className="max-h-[160rem]"
               src={MoonAnimation}
               alt="Moon Animation"
               animate={{
@@ -53,7 +55,7 @@ function App() {
                 value={rangeValue}
                 defaultValue={0}
                 min={0}
-                max={140}
+                max={160}
                 step={20}
               />
             </div>
