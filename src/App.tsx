@@ -8,7 +8,7 @@ interface PositionInterface {
 }
 
 function App() {
-  const [rangeValue, setRangeValue] = useState<number>(0);
+  const [rangeValue, setRangeValue] = useState<number>(20);
   const moonRef = useRef(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
