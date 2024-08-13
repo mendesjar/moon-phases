@@ -3,6 +3,10 @@ import LogoMarca from "./assets/logo-marca.svg";
 import MoonAnimation from "./assets/moon-phases-animation.svg";
 import { motion } from "framer-motion";
 
+interface PositionInterface {
+  [key: number]: { y: number; phase: string };
+}
+
 function App() {
   const [rangeValue, setRangeValue] = useState<number>(0);
   const moonRef = useRef(null);
@@ -12,7 +16,7 @@ function App() {
     setRangeValue(value);
   };
 
-  let positions: any = {
+  let positions: PositionInterface = {
     0: { y: 0, phase: "Nova" },
     20: { y: 18, phase: "Minguante" },
     40: { y: 35.8, phase: "Quarto Minguante" },
