@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import LogoMarca from "./assets/logo-marca.svg";
 import MoonAnimation from "./assets/moon-phases-animation.svg";
 import { motion } from "framer-motion";
@@ -7,8 +7,14 @@ interface PositionInterface {
   [key: number]: { y: number; phase: string };
 }
 
+interface CanvasInterface {
+  x: number;
+  y: number;
+}
+
 function App() {
   const [rangeValue, setRangeValue] = useState<number>(20);
+  const [canvasPositions, setCanvasPositions] = useState<CanvasInterface[]>([]);
   const moonRef = useRef(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,9 +34,37 @@ function App() {
     160: { y: 142.2, phase: "Nova" },
   };
 
+  const generateRandomPositions = () => {
+    const positions: CanvasInterface[] = [];
+    const canvasCount = 10;
+
+    for (let i = 0; i < canvasCount; i++) {
+      const randomX = Math.random() * window.innerWidth;
+      const randomY = Math.random() * window.innerHeight;
+      positions.push({ x: randomX, y: randomY });
+    }
+
+    setCanvasPositions(positions);
+  };
+
+  useEffect(() => {
+    generateRandomPositions();
+  }, []);
+
   return (
-    <main className="bg-blue-950 h-dvh p-3">
-      <div className="bg-gd-white flex justify-center items-center p-1 rounded-3xl md:rounded-[3.25rem] h-full w-full">
+    <main className="bg-blue-950 h-dvh p-3 z-10">
+      {canvasPositions.map((position, index) => (
+        <canvas
+          id="drawLines"
+          key={index}
+          className="fixed w-4 h-4 opacity-5 rounded-full bg-white"
+          style={{
+            left: `${position.x}px`,
+            top: `${position.y}px`,
+          }}
+        />
+      ))}
+      <div className="bg-gd-white flex justify-center items-center p-1 rounded-3xl md:rounded-[3.25rem] h-full w-full z-50">
         <div className="h-full w-full p-5 bg-main rounded-3xl md:rounded-[3rem] shadow-main ">
           <div className="flex justify-center max-h-8 md:max-h-12 h-1/5">
             <img src={LogoMarca} alt="Logo Marca" />
