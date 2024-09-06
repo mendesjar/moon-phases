@@ -55,9 +55,8 @@ function App() {
     <main className="bg-blue-950 h-dvh p-3 z-10">
       {canvasPositions.map((position, index) => (
         <canvas
-          id="drawLines"
           key={index}
-          className="fixed w-4 h-4 opacity-5 rounded-full bg-white"
+          className="fixed w-4 h-4 opacity-5 rounded-md rotate-45 bg-white"
           style={{
             left: `${position.x}px`,
             top: `${position.y}px`,
