@@ -1,30 +1,19 @@
-# React + TypeScript + Vite
+# 🌙 Moon Phases
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web que mostra as **fases da lua** de forma simples e visual.  
+Projeto criado com **React + TypeScript + Vite**
 
-Currently, two official plugins are available:
+👉 Demo online:  
+https://moon-phases-gm.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Sobre o projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+O objetivo deste projeto é exibir as fases da lua de forma clara, rápida e responsiva.  
+Ele pode ser usado como:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Projeto de estudo com React + TS
+- Base para apps de astronomia/clima
+- Widget de fases lunares
+- Experimento de UI com Tailwind
