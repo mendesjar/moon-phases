@@ -15,7 +15,7 @@ function ItemPhase({
 }) {
   const emoji = Moon.emojiForLunarPhase(phase);
   return (
-    <div className="bg-linear-60 from-white to-transparent p-px rounded-xl">
+    <div className="inline-block align-top bg-linear-60 from-white to-transparent p-px rounded-xl">
       <div
         className="bg-blue-400 flex flex-col items-center gap-y-3 p-3 min-w-20 rounded-xl"
         title={date.toDateString()}
@@ -88,21 +88,25 @@ function App() {
   };
 
   return (
-    <div className="p-5 flex flex-col items-center gap-y-6 justify-center min-h-screen">
-      <div className="flex flex-col items-center gap-y-8">
-        <div className="flex gap-x-3 w-full md:w-max mask-x-from-50% mask-x-to-96%">
-          {dates.map((dt) => {
-            const phase = Moon.lunarPhase(dt, { hemisphere: hemisphere.get() });
-            const label = formatLabel(dt);
-            return (
-              <ItemPhase
-                key={dt.toISOString()}
-                phase={phase}
-                date={dt}
-                label={label}
-              />
-            );
-          })}
+    <div className="p-5 flex flex-col items-center gap-y-6 justify-center min-h-screen overflow-x-hidden">
+      <div className="flex flex-col items-center gap-y-8 w-full">
+        <div className="relative w-full max-w-full">
+          <div className="flex gap-x-3 w-full md:w-max py-2 mask-x-from-50% mask-x-to-96%">
+            {dates.map((dt) => {
+              const phase = Moon.lunarPhase(dt, {
+                hemisphere: hemisphere.get(),
+              });
+              const label = formatLabel(dt);
+              return (
+                <ItemPhase
+                  key={dt.toISOString()}
+                  phase={phase}
+                  date={dt}
+                  label={label}
+                />
+              );
+            })}
+          </div>
         </div>
         <div>
           <p className="text-md font-bold text-center mb-2">
