@@ -1,112 +1,79 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import LogoMarca from "./assets/logo-marca.svg";
-import MoonAnimation from "./assets/moon-phases-animation.svg";
-import { motion } from "framer-motion";
+import { LunarPhase, Moon } from "lunarphase-js";
 
-interface PositionInterface {
-  [key: number]: { y: number; phase: string };
-}
-
-interface CanvasInterface {
-  x: number;
-  y: number;
+function ItemPhase({
+  phase,
+  date,
+  label,
+}: {
+  phase: LunarPhase;
+  date: Date;
+  label: string;
+}) {
+  const emoji = Moon.emojiForLunarPhase(phase);
+  return (
+    <div className="bg-linear-60 from-white to-transparent p-px rounded-xl">
+      <div
+        className="bg-blue-400 flex flex-col items-center gap-y-3 p-3 min-w-20 rounded-xl"
+        title={date.toDateString()}
+      >
+        <span className="text-sm">{label}</span>
+        <div className="relative">
+          <p className="text-5xl">{emoji}</p>
+          <div className="absolute bottom-0 -right-2">
+            <span className="text-xs bg-white/85 text-black rounded-sm py-0.2 px-1.5">
+              {new Date(date).toLocaleString("en-US", { weekday: "short" })}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function App() {
-  const [rangeValue, setRangeValue] = useState<number>(20);
-  const [canvasPositions, setCanvasPositions] = useState<CanvasInterface[]>([]);
-  const moonRef = useRef(null);
+  const offsets = [-2, -1, 0, 1, 2];
+  const dates = offsets.map((o) => {
+    const d = new Date();
+    d.setDate(d.getDate() + o);
+    return d;
+  });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    setRangeValue(value);
+  const isSameDay = (a: Date, b: Date) =>
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
+
+  const formatLabel = (d: Date) => {
+    const today = new Date();
+    if (isSameDay(d, today)) return "Today";
+    const day = d.getDate();
+    const month = d.toLocaleString("en-US", { month: "short" });
+    return `${day} ${month}`;
   };
-
-  let positions: PositionInterface = {
-    0: { y: 0, phase: "Nova" },
-    20: { y: 18, phase: "Minguante" },
-    40: { y: 35.8, phase: "Quarto Minguante" },
-    60: { y: 53.5, phase: "Gibosa Minguante" },
-    80: { y: 71.3, phase: "Cheia" },
-    100: { y: 89, phase: "Gibosa Crescente" },
-    120: { y: 106.8, phase: "Quarto Crescente" },
-    140: { y: 124.7, phase: "Crescente" },
-    160: { y: 142.2, phase: "Nova" },
-  };
-
-  const generateRandomPositions = () => {
-    const positions: CanvasInterface[] = [];
-    const canvasCount = 10;
-
-    for (let i = 0; i < canvasCount; i++) {
-      const randomX = Math.random() * window.innerWidth;
-      const randomY = Math.random() * window.innerHeight;
-      positions.push({ x: randomX, y: randomY });
-    }
-
-    setCanvasPositions(positions);
-  };
-
-  useEffect(() => {
-    generateRandomPositions();
-  }, []);
 
   return (
-    <main className="bg-blue-950 h-dvh p-3 z-10">
-      {canvasPositions.map((position, index) => (
-        <canvas
-          key={index}
-          className="fixed w-4 h-4 opacity-5 rounded-md rotate-45 bg-white"
-          style={{
-            left: `${position.x}px`,
-            top: `${position.y}px`,
-          }}
-        />
-      ))}
-      <div className="bg-gd-white flex justify-center items-center p-1 rounded-3xl md:rounded-[3.25rem] h-full w-full z-50">
-        <div className="h-full w-full p-5 bg-main rounded-3xl md:rounded-[3rem] shadow-main ">
-          <div className="flex justify-center max-h-8 md:max-h-12 h-1/5">
-            <img src={LogoMarca} alt="Logo Marca" />
-          </div>
-          <div className="h-[17rem] flex flex-col overflow-hidden mt-5">
-            <motion.img
-              id="teste"
-              ref={moonRef}
-              className="max-h-[160rem]"
-              src={MoonAnimation}
-              alt="Moon Animation"
-              animate={{
-                opacity: 1,
-                translateY: -positions[rangeValue].y + "rem",
-              }}
-              initial={{ opacity: 0, translateY: "-8rem" }}
-            />
-          </div>
-          <div className="flex justify-center mt-5">
-            <div className="bg-gd-white flex justify-center items-center p-[0.18rem] rounded-full">
-              <input
-                type="range"
-                name="afas"
-                id="aafs"
-                onChange={(e) => handleInputChange(e)}
-                value={rangeValue}
-                defaultValue={0}
-                min={0}
-                max={160}
-                step={20}
+    <div className="p-5 flex flex-col items-center gap-y-6">
+      <div className="flex flex-col items-center gap-y-3">
+        <div className="flex gap-x-3 w-max mask-x-from-50% mask-x-to-96%">
+          {dates.map((dt) => {
+            const phase = Moon.lunarPhase(dt);
+            const label = formatLabel(dt);
+            return (
+              <ItemPhase
+                key={dt.toISOString()}
+                phase={phase}
+                date={dt}
+                label={label}
               />
-            </div>
-          </div>
-          <motion.p
-            className="text-center mt-4 text-white text-2xl uppercase"
-            animate={{ opacity: 1, translateY: 0 }}
-            initial={{ opacity: 0, translateY: "-2rem" }}
-          >
-            {positions[rangeValue].phase}
-          </motion.p>
+            );
+          })}
         </div>
+        <p className="text-md font-bold">{Moon.lunarPhase(new Date())}</p>
       </div>
-    </main>
+      <p className="fixed right-10 bottom-1/3 -translate-y-1/2 -rotate-90 origin-right font-extrabold">
+        MOON PHASES
+      </p>
+    </div>
   );
 }
 
