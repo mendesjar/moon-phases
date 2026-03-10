@@ -83,7 +83,7 @@ function App() {
     const today = new Date();
     if (isSameDay(d, today)) return "Today";
     const day = d.getDate();
-    const month = d.toLocaleString("en-US", { month: "short" });
+    const month = d.toLocaleString(LOCALE, { month: "short" });
     return `${day} ${month}`;
   };
 
