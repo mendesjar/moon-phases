@@ -1,4 +1,5 @@
 import { LunarPhase, Moon } from "lunarphase-js";
+import { HemisphereHelper } from "./helpers";
 
 function ItemPhase({
   phase,
@@ -20,7 +21,7 @@ function ItemPhase({
         <div className="relative">
           <p className="text-5xl">{emoji}</p>
           <div className="absolute bottom-0 -right-2">
-            <span className="text-xs bg-white/85 text-black rounded-sm py-0.2 px-1.5">
+            <span className="text-xs bg-white/75 text-black rounded-sm py-0.2 px-1.5">
               {new Date(date).toLocaleString("en-US", { weekday: "short" })}
             </span>
           </div>
@@ -31,6 +32,7 @@ function ItemPhase({
 }
 
 function App() {
+  const hemisphere = new HemisphereHelper();
   const offsets = [-2, -1, 0, 1, 2];
   const dates = offsets.map((o) => {
     const d = new Date();
@@ -56,7 +58,7 @@ function App() {
       <div className="flex flex-col items-center gap-y-3">
         <div className="flex gap-x-3 w-max mask-x-from-50% mask-x-to-96%">
           {dates.map((dt) => {
-            const phase = Moon.lunarPhase(dt);
+            const phase = Moon.lunarPhase(dt, { hemisphere: hemisphere.get() });
             const label = formatLabel(dt);
             return (
               <ItemPhase
