@@ -15,7 +15,7 @@ function ItemPhase({
 }) {
   const emoji = Moon.emojiForLunarPhase(phase);
   return (
-    <div className="inline-block align-top bg-linear-60 from-white to-transparent p-px rounded-xl">
+    <div className="inline-block align-top border-gradient p-px rounded-xl">
       <div
         className="bg-blue-400 flex flex-col items-center gap-y-3 p-3 min-w-20 rounded-xl"
         title={date.toDateString()}
@@ -125,7 +125,7 @@ function App() {
           </div>
         </div>
         <span className="bg-linear-90 to-transparent via-white from-transparent w-full h-px" />
-        <div className="bg-linear-130 from-white to-transparent p-px rounded-xl">
+        <div className="border-gradient p-px rounded-xl">
           <div className="bg-blue-900 px-6 py-2 rounded-xl min-w-50">
             <span className="text-xs">Distance:</span>
             <p className="text-md">{Moon.lunarDistance().toFixed(3)} mi</p>
