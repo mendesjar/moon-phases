@@ -91,7 +91,7 @@ function App() {
     <div className="p-5 flex flex-col items-center gap-y-6 justify-center min-h-screen overflow-x-hidden">
       <div className="flex flex-col items-center gap-y-8 w-full">
         <div className="relative w-full max-w-full">
-          <div className="flex gap-x-3 w-full md:w-max py-2 mask-x-from-50% mask-x-to-96%">
+          <div className="flex gap-x-3 justify-center w-full py-2 mask-x-from-50% mask-x-to-96%">
             {dates.map((dt) => {
               const phase = Moon.lunarPhase(dt, {
                 hemisphere: hemisphere.get(),
