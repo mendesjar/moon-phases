@@ -153,7 +153,7 @@ function App() {
         <div className="border-gradient p-px rounded-xl">
           <div className="bg-blue-900 px-6 py-2 rounded-xl min-w-50">
             <span className="text-xs">Distance:</span>
-            <p className="text-md">{Moon.lunarDistance().toFixed(3)} mi</p>
+            <p className="text-md">{Moon.lunarDistance().toFixed(3)} R⊕</p>
           </div>
         </div>
       </div>
