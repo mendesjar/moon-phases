@@ -8,16 +8,22 @@ function ItemPhase({
   phase,
   date,
   label,
+  selected,
 }: {
   phase: LunarPhase;
   date: Date;
   label: string;
+  selected: boolean;
 }) {
   const emoji = Moon.emojiForLunarPhase(phase);
   return (
-    <div className="inline-block align-top border-gradient p-px rounded-xl">
+    <div
+      className={`transform transition-transform inline-block align-top border-gradient p-px rounded-xl ${selected ? `scale-110` : ""}`}
+    >
       <div
-        className="bg-blue-400 flex flex-col items-center gap-y-3 p-3 min-w-20 rounded-xl"
+        className={`flex flex-col items-center gap-y-3 p-3 min-w-20 rounded-xl ${
+          selected ? "bg-blue-400" : "bg-blue-900"
+        }`}
         title={date.toDateString()}
       >
         <span className="text-sm">{label}</span>
@@ -84,6 +90,12 @@ function App() {
     a.getMonth() === b.getMonth() &&
     a.getDate() === b.getDate();
 
+  const [selectedDate, setSelectedDate] = useState<Date>(() => {
+    const today = new Date();
+    const todayIndex = dates.findIndex((d) => isSameDay(d, today));
+    return todayIndex >= 0 ? today : dates[0];
+  });
+
   const formatLabel = (d: Date) => {
     const today = new Date();
     if (isSameDay(d, today)) return "Today";
@@ -93,17 +105,17 @@ function App() {
   };
 
   useEffect(() => {
-    const todayIndex = dates.findIndex((d) => isSameDay(d, new Date()));
+    const index = dates.findIndex((d) => isSameDay(d, selectedDate));
     const container = scrollRef.current;
-    const el = itemRefs.current[todayIndex];
-    if (container && el && todayIndex >= 0) {
+    const el = itemRefs.current[index];
+    if (container && el && index >= 0) {
       requestAnimationFrame(() => {
         const left =
           el.offsetLeft - container.clientWidth / 2 + el.clientWidth / 2;
         container.scrollTo({ left, behavior: "smooth" });
       });
     }
-  }, [dates]);
+  }, [dates, selectedDate]);
 
   return (
     <div className="p-5 flex flex-col items-center gap-y-6 justify-center min-h-screen overflow-x-hidden">
@@ -119,15 +131,24 @@ function App() {
                 hemisphere: hemisphere.get(),
               });
               const label = formatLabel(dt);
+              const selected = isSameDay(dt, selectedDate);
               return (
                 <div
                   key={dt.toISOString()}
                   ref={(el) => {
                     itemRefs.current[idx] = el;
                   }}
-                  className="shrink-0"
+                  onClick={() => setSelectedDate(dt)}
+                  role="button"
+                  aria-pressed={selected}
+                  style={{ cursor: "pointer" }}
                 >
-                  <ItemPhase phase={phase} date={dt} label={label} />
+                  <ItemPhase
+                    phase={phase}
+                    date={dt}
+                    label={label}
+                    selected={selected}
+                  />
                 </div>
               );
             })}
@@ -135,10 +156,14 @@ function App() {
         </div>
         <div>
           <p className="text-md font-bold text-center mb-2">
-            {Moon.lunarPhase(new Date())}
+            {Moon.lunarPhase(selectedDate)}
           </p>
           <div className="flex gap-x-2">
-            <ItemDetails>Today</ItemDetails>
+            <ItemDetails>
+              {isSameDay(selectedDate, new Date())
+                ? "Today"
+                : selectedDate.toLocaleDateString(LOCALE)}
+            </ItemDetails>
             <ItemDetails>
               {String(hemisphere.get()) === "northern"
                 ? "Northern"
